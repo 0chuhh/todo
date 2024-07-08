@@ -10,27 +10,27 @@ export interface IListProps<Value> {
 
 }
 
-export function List<Value>({ 
-    items, 
+export function List<Value>({
+    items,
     getItemLabel = defaultGetItemLabel,
     renderItem = defaultRenderItem
 }: IListProps<Value>) {
 
-    const handleItemClick = (item:Value) => {
+    const handleItemClick = (item: Value) => {
         console.log(item);
-    }
+    };
 
     return (
         <div className={classes.list}>
             {
-                items.map((item, index)=>(
+                items.map((item, index) => (
                     <Fragment key={generateKey(index)}>
                         {
                             renderItem(item, {
-                                className:classes.item,
-                                value:item,
-                                label:`${getItemLabel(item)}`,
-                                onClick:handleItemClick
+                                className: classes.item,
+                                value: item,
+                                label: `${getItemLabel(item)}`,
+                                onComplete: handleItemClick
                             })
                         }
                     </Fragment>
