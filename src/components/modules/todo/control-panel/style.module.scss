@@ -1,0 +1,15 @@
+.control{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    width: 100%;
+    font-size: 12px;
+    padding: 0 15px;
+    color: gray;
+    box-sizing: border-box;
+    & button{
+        font-size: 12px;
+        color: gray;
+    }
+}
