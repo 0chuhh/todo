@@ -5,7 +5,8 @@ export enum TodoStatus {
 }
 
 export interface ITodo {
+    id:number | string;
     text: string;
     status: TodoStatus;
-    expire_date: Date
+    expire_date?: Date
 }
