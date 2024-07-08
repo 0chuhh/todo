@@ -1,3 +1,5 @@
+export type TodoFilter = 'ALL' | keyof typeof TodoStatus;
+
 export enum TodoStatus {
     ACTIVE = 'ACTIVE',
     COMPLETED = 'COMPLETED',
@@ -5,8 +7,8 @@ export enum TodoStatus {
 }
 
 export interface ITodo {
-    id:number | string;
+    id: number | string;
     text: string;
     status: TodoStatus;
-    expire_date?: Date
+    expire_date?: Date;
 }
