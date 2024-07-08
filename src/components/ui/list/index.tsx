@@ -7,13 +7,15 @@ export interface IListProps<Value> {
     items: Value[];
     getItemLabel?: typeof defaultGetItemLabel<Value>;
     renderItem?: typeof defaultRenderItem<Value>;
+    filter?:(items:Value[])=>Value[]
 
 }
 
 export function List<Value>({
     items,
     getItemLabel = defaultGetItemLabel,
-    renderItem = defaultRenderItem
+    renderItem = defaultRenderItem,
+    filter = (items)=>items
 }: IListProps<Value>) {
 
     const handleItemClick = (item: Value) => {
@@ -23,14 +25,14 @@ export function List<Value>({
     return (
         <div className={classes.list}>
             {
-                items.map((item, index) => (
+                filter(items).map((item, index) => (
                     <Fragment key={generateKey(index)}>
                         {
                             renderItem(item, {
                                 className: classes.item,
                                 value: item,
                                 label: `${getItemLabel(item)}`,
-                                onComplete: handleItemClick
+                                onClick: handleItemClick
                             })
                         }
                     </Fragment>
