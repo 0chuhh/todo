@@ -1,0 +1,13 @@
+.item {
+    word-wrap: break-word;
+    word-break: break-all;
+    & > .checkbox > svg{
+        fill: green;
+    }
+}
+.completed {
+    @extend .item;
+    & > div {
+        text-decoration: line-through;
+    }
+}

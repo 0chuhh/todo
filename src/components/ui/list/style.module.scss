@@ -1,0 +1,13 @@
+.list {
+    width: 100%;
+    background-color: #fff;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-top:solid 1px #d3d0d0;
+    padding: 10px;
+    cursor: pointer;
+}
