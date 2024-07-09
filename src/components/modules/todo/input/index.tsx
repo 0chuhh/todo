@@ -37,8 +37,13 @@ export const TodoInput:FC<ITodoInputProps> = ({addTodo}) => {
         setValue('')
     }
 
+    const onEnter =(event:React.KeyboardEvent<HTMLInputElement>) => {
+        if(event.key === "Enter") handleAdd();
+    }
+
     return (
         <Input
+            onKeyDown={onEnter}
             fullWidth
             InputProps={{
                 startAdornment: <InputAdornment position='start'>

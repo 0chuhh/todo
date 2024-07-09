@@ -5,8 +5,8 @@ import * as path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base:'/todo',
   plugins: [react(), tsconfigPaths()],
-
   resolve: {
     alias:{
       app: `${path.resolve(__dirname, "./src/app/")}`,
