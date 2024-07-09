@@ -1,20 +1,29 @@
-import { Checkbox } from '@mui/material';
+import { Checkbox, Grow } from '@mui/material';
 import { IListItemProps, ListItem } from 'components/ui/list/item';
 import { ITodo, TodoStatus } from 'models/todo';
-import React, { FC } from 'react';
-import classes from './style.module.scss'
+import React, { FC, useCallback } from 'react';
+import classes from './style.module.scss';
 
 export interface ITodoItemProps extends IListItemProps<ITodo> {
-    todoItem: ITodo;
-    onComplete: (item: ITodo) => () => void;
+    value: ITodo;
+    onClick?: (item: ITodo) => void;
 }
 
-export const TodoItem: FC<ITodoItemProps> = React.memo(({ todoItem, onComplete, className, ...restProps }) => {
-    const completed = todoItem.status === TodoStatus.COMPLETED;
+export const TodoItem: FC<ITodoItemProps> = React.memo(({ value, onClick, className, ...restProps }) => {
+    const completed = value.status === TodoStatus.COMPLETED;
+
+    const handleClick = useCallback(() => {
+        console.log('click', onClick);
+        if (onClick) onClick(value);
+    }, [value, onClick]);
+
+
     return (
-        <div onClick={onComplete(todoItem)} className={[className, completed?classes.completed:classes.item].join(' ')}>
-            <Checkbox className={classes.checkbox} checked={completed} />
-            <ListItem  {...restProps} />
-        </div>
+        <Grow in={true}>
+            <div onClick={handleClick} className={[className, completed ? classes.completed : classes.item].join(' ')}>
+                <Checkbox className={classes.checkbox} checked={completed} />
+                <ListItem value={value}  {...restProps} />
+            </div>
+        </Grow>
     );
 });
