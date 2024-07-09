@@ -1,41 +1,40 @@
-import { Fragment } from 'react/jsx-runtime';
 import classes from './style.module.scss';
 import { defaultGetItemLabel, defaultRenderItem } from './utils';
-import { generateKey } from 'utils/generate-key';
-
-export interface IListProps<Value> {
+import { HTMLAttributes, useMemo } from 'react';
+export interface IListProps<Value> extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
     items: Value[];
     getItemLabel?: typeof defaultGetItemLabel<Value>;
     renderItem?: typeof defaultRenderItem<Value>;
-    filter?:(items:Value[])=>Value[]
-
+    onItemClick?: (item: Value) => void;
+    filter?: (items: Value[]) => Value[];
 }
 
 export function List<Value>({
     items,
     getItemLabel = defaultGetItemLabel,
     renderItem = defaultRenderItem,
-    filter = (items)=>items
+    onItemClick,
+    filter = (items) => items,
+    className,
+    ...restProps
 }: IListProps<Value>) {
 
-    const handleItemClick = (item: Value) => {
-        console.log(item);
-    };
+    const filteredItems = useMemo(()=>filter(items), [filter, items])
 
     return (
-        <div className={classes.list}>
+        <div {...restProps} className={[classes.list, className].join(' ')}>
             {
-                filter(items).map((item, index) => (
-                    <Fragment key={generateKey(index)}>
+                filteredItems.map((item, index) => (
+                    <div key={`${index}-${getItemLabel(item)}`}>
                         {
                             renderItem(item, {
                                 className: classes.item,
                                 value: item,
                                 label: `${getItemLabel(item)}`,
-                                onClick: handleItemClick
+                                onClick: onItemClick
                             })
                         }
-                    </Fragment>
+                    </div>
                 ))
             }
         </div>
